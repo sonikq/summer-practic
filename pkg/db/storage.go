@@ -30,7 +30,7 @@ func ConnectDatabase(config cfg.PostgresConfig) (*DB, error) {
 	}
 
 	return &DB{
-		IItemsDB: NewAccessUserDB(db),
+		IItemsDB: NewItemDB(db),
 	}, nil
 }
 

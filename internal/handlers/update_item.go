@@ -9,9 +9,9 @@ import (
 	"time"
 )
 
-func (h *Handler) AddUserAccess(ctx *gin.Context) {
+func (h *Handler) UpdateItem(ctx *gin.Context) {
 
-	var request models.AddUserAccessRequest
+	var request models.UpdateItemRequest
 
 	err := ctx.BindJSON(&request)
 	if err != nil {
@@ -20,17 +20,12 @@ func (h *Handler) AddUserAccess(ctx *gin.Context) {
 		return
 	}
 
-	response := make(chan models.AddUserAccessResponse, 1)
+	response := make(chan models.UpdateItemResponse, 1)
 
 	c, cancel := context.WithTimeout(ctx, time.Second*time.Duration(h.config.CtxTimeout))
 	defer cancel()
 
-	go h.service.IAddAccessService.AddAccessUser(request, response)
-	defer func() {
-		if r := recover(); r != nil {
-			//log.Println(r)
-		}
-	}()
+	go h.service.IUpdateItemService.UpdateItem(request, response)
 
 	select {
 	case <-c.Done():
@@ -56,4 +51,5 @@ func (h *Handler) AddUserAccess(ctx *gin.Context) {
 			)
 		}
 	}
+
 }

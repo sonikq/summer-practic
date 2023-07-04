@@ -6,21 +6,21 @@ import (
 	"strings"
 )
 
-type DeleteAccessRepo struct {
+type DeleteItemRepo struct {
 	db *db.DB
 }
 
-func NewDeleteAccessRepo(db *db.DB) *DeleteAccessRepo {
-	return &DeleteAccessRepo{
+func NewDeleteItemRepo(db *db.DB) *DeleteItemRepo {
+	return &DeleteItemRepo{
 		db: db,
 	}
 }
 
-func (r *DeleteAccessRepo) DeleteAccessUser(request models.DeleteUserAccessRequest) models.DeleteUserAccessResponse {
-	if err := r.db.DeleteUserAccess(request.UserID); err != nil {
+func (r *DeleteItemRepo) DeleteItem(request models.DeleteItemRequest) models.DeleteItemResponse {
+	if err := r.db.DeleteItem(request.Designation); err != nil {
 		e := strings.Split(err.Error(), ": ")
 		src, msg := e[0], e[1]
-		return models.DeleteUserAccessResponse{
+		return models.DeleteItemResponse{
 			Code:   500,
 			Status: deleteAccessUserFail,
 			Error: &models.Err{
@@ -30,7 +30,7 @@ func (r *DeleteAccessRepo) DeleteAccessUser(request models.DeleteUserAccessReque
 		}
 	}
 
-	return models.DeleteUserAccessResponse{
+	return models.DeleteItemResponse{
 		Code:   200,
 		Status: deleteAccessUserSuccess,
 		Error:  nil,

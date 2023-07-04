@@ -5,34 +5,34 @@ import (
 	"gitlab.geogracom.com/skdf/skdf-abac-go/internal/repositories"
 )
 
-type IAddAccessService interface {
-	AddAccessUser(request models.AddUserAccessRequest, response chan models.AddUserAccessResponse)
+type IAddItemService interface {
+	AddItem(request models.AddItemRequest, response chan models.AddItemResponse)
 }
 
-type ICheckAccessService interface {
-	CheckAccessUser(request models.CheckUserAccessRequest, response chan models.CheckUserAccessResponse)
+//type ICheckAccessService interface {
+//	CheckAccessUser(request models.CheckUserAccessRequest, response chan models.CheckUserAccessResponse)
+//}
+
+type IDeleteItemService interface {
+	DeleteItem(request models.DeleteItemRequest, response chan models.DeleteItemResponse)
 }
 
-type IDeleteAccessService interface {
-	DeleteAccessUser(request models.DeleteUserAccessRequest, response chan models.DeleteUserAccessResponse)
-}
-
-type IUpdateAccessService interface {
-	UpdateAccessUser(request models.UpdateUserAccessRequest, response chan models.UpdateUserAccessResponse)
+type IUpdateItemService interface {
+	UpdateItem(request models.UpdateItemRequest, response chan models.UpdateItemResponse)
 }
 
 type Service struct {
-	IAddAccessService
-	ICheckAccessService
-	IDeleteAccessService
-	IUpdateAccessService
+	IAddItemService
+	//ICheckAccessService
+	IDeleteItemService
+	IUpdateItemService
 }
 
 func NewService(repos *repositories.Repository) *Service {
 	return &Service{
-		IAddAccessService:    NewAddAccessService(repos.IAddAccessRepo),
-		ICheckAccessService:  NewCheckAccessService(repos.ICheckAccessRepo),
-		IDeleteAccessService: NewDeleteAccessService(repos.IDeleteAccessRepo),
-		IUpdateAccessService: NewUpdateAccessService(repos.IUpdateAccessRepo),
+		IAddItemService: NewAddItemService(repos.IAddItemRepo),
+		//ICheckAccessService:  NewCheckAccessService(repos.ICheckAccessRepo),
+		IDeleteItemService: NewDeleteItemService(repos.IDeleteAccessRepo),
+		IUpdateItemService: NewUpdateItemService(repos.IUpdateAccessRepo),
 	}
 }

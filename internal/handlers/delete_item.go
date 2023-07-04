@@ -9,9 +9,9 @@ import (
 	"time"
 )
 
-func (h *Handler) DeleteUserAccess(ctx *gin.Context) {
+func (h *Handler) DeleteItem(ctx *gin.Context) {
 
-	var request models.DeleteUserAccessRequest
+	var request models.DeleteItemRequest
 
 	err := ctx.BindJSON(&request)
 	if err != nil {
@@ -20,12 +20,12 @@ func (h *Handler) DeleteUserAccess(ctx *gin.Context) {
 		return
 	}
 
-	response := make(chan models.DeleteUserAccessResponse, 1)
+	response := make(chan models.DeleteItemResponse, 1)
 
 	c, cancel := context.WithTimeout(ctx, time.Second*time.Duration(h.config.CtxTimeout))
 	defer cancel()
 
-	go h.service.IDeleteAccessService.DeleteAccessUser(request, response)
+	go h.service.IDeleteItemService.DeleteItem(request, response)
 
 	select {
 	case <-c.Done():

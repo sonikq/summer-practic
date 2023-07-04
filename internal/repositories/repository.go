@@ -5,34 +5,34 @@ import (
 	"gitlab.geogracom.com/skdf/skdf-abac-go/pkg/db"
 )
 
-type IAddAccessRepo interface {
-	AddAccessUser(request models.AddUserAccessRequest) models.AddUserAccessResponse
+type IAddItemRepo interface {
+	AddItem(request models.AddItemRequest) models.AddItemResponse
 }
 
-type ICheckAccessRepo interface {
-	CheckAccessUser(request models.CheckUserAccessRequest) models.CheckUserAccessResponse
-}
+//type ICheckAccessRepo interface {
+//	CheckAccessUser(request models.CheckUserAccessRequest) models.CheckUserAccessResponse
+//}
 
 type IDeleteAccessRepo interface {
-	DeleteAccessUser(request models.DeleteUserAccessRequest) models.DeleteUserAccessResponse
+	DeleteItem(request models.DeleteItemRequest) models.DeleteItemResponse
 }
 
 type IUpdateAccessRepo interface {
-	UpdateAccessUser(request models.UpdateUserAccessRequest) models.UpdateUserAccessResponse
+	UpdateItem(request models.UpdateItemRequest) models.UpdateItemResponse
 }
 
 type Repository struct {
-	IAddAccessRepo
-	ICheckAccessRepo
+	IAddItemRepo
+	//ICheckAccessRepo
 	IDeleteAccessRepo
 	IUpdateAccessRepo
 }
 
 func NewRepository(db *db.DB) *Repository {
 	return &Repository{
-		IAddAccessRepo:    NewAddAccessRepo(db),
-		ICheckAccessRepo:  NewCheckAccessRepo(db),
-		IDeleteAccessRepo: NewDeleteAccessRepo(db),
-		IUpdateAccessRepo: NewUpdateAccessRepo(db),
+		IAddItemRepo: NewAddItemRepo(db),
+		//ICheckAccessRepo:  NewCheckAccessRepo(db),
+		IDeleteAccessRepo: NewDeleteItemRepo(db),
+		IUpdateAccessRepo: NewUpdateItemRepo(db),
 	}
 }
