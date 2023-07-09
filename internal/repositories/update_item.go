@@ -17,7 +17,7 @@ func NewUpdateItemRepo(db *db.DB) *UpdateItemRepo {
 }
 
 func (r *UpdateItemRepo) UpdateItem(request models.UpdateItemRequest) models.UpdateItemResponse {
-	if err := r.db.UpdateItem(
+	if err := r.db.UpdateItem(request.ItemID,
 		request.Name, request.Designation, request.Link, request.Quantity, request.Places.DIN, request.Places.U, request.Ports.AIN, request.Ports.AOT, request.Ports.DIN, request.Ports.DOT,
 		request.Ports.EHT, request.PCI, request.Connectors.RJ, request.Connectors.PIN20, request.Connectors.PIN50, request.Connectors.DB37, request.Connectors.DB62,
 		request.Connectors.SNC55, request.Wires.MGTF, request.Wires.CAT6, request.Length, request.Bracings.Washer, request.Bracings.Nut, request.Bracings.Bolt,

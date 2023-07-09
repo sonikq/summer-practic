@@ -17,7 +17,7 @@ func NewAddItemRepo(db *db.DB) *AddItemRepo {
 }
 
 func (r *AddItemRepo) AddItem(request models.AddItemRequest) models.AddItemResponse {
-	if err := r.db.AddItem(
+	if err := r.db.AddItem(request.ItemID,
 		request.Name, request.Designation, request.Link, request.Quantity, request.Places.DIN, request.Places.U, request.Ports.AIN, request.Ports.AOT, request.Ports.DIN, request.Ports.DOT,
 		request.Ports.EHT, request.PCI, request.Connectors.RJ, request.Connectors.PIN20, request.Connectors.PIN50, request.Connectors.DB37, request.Connectors.DB62,
 		request.Connectors.SNC55, request.Wires.MGTF, request.Wires.CAT6, request.Length, request.Bracings.Washer, request.Bracings.Nut, request.Bracings.Bolt,

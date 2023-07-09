@@ -1,16 +1,17 @@
 package models
 
 type AddItemRequest struct {
+	ItemID      int    `json:"item_id"`
 	Name        string `json:"name"`
 	Designation string `json:"designation"`
 	Link        string `json:"link"`
 	Quantity    int    `json:"quantity"`
 	Places      Places
 	Ports       Ports
-	PCI         int
+	PCI         int `json:"pci"`
 	Connectors  Connectors
 	Wires       Wires
-	Length      int
+	Length      int `json:"length"`
 	Bracings    Bracings
 	Power       float64 `json:"power"`
 	Voltage     string  `json:"voltage"`

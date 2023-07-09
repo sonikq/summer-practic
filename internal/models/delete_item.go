@@ -1,7 +1,7 @@
 package models
 
 type DeleteItemRequest struct {
-	Designation string `json:"designation"`
+	ItemID int `json:"item_id"`
 }
 
 type DeleteItemResponse struct {

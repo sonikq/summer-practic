@@ -17,7 +17,7 @@ func NewDeleteItemRepo(db *db.DB) *DeleteItemRepo {
 }
 
 func (r *DeleteItemRepo) DeleteItem(request models.DeleteItemRequest) models.DeleteItemResponse {
-	if err := r.db.DeleteItem(request.Designation); err != nil {
+	if err := r.db.DeleteItem(request.ItemID); err != nil {
 		e := strings.Split(err.Error(), ": ")
 		src, msg := e[0], e[1]
 		return models.DeleteItemResponse{

@@ -11,10 +11,10 @@ type ItemsDB struct {
 }
 
 type IItemsDB interface {
-	AddItem(string, string, string, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float64, string, float64) error
+	AddItem(int, string, string, string, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float64, string, float64) error
 	//CheckUserAccess(int, int, int, int, string) (bool, error)
-	DeleteItem(string) error
-	UpdateItem(string, string, string, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float64, string, float64) error
+	DeleteItem(int) error
+	UpdateItem(int, string, string, string, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float64, string, float64) error
 	CloseDB() error
 }
 
@@ -24,9 +24,9 @@ func NewItemDB(db *sqlx.DB) *ItemsDB {
 	}
 }
 
-func (db *ItemsDB) AddItem(name, design, link string, quantity, placeDIN, placeU, portAIN, portAOT, portDIN, portDOT, portEHT, pci, connRJ, con20PIN, con50PIN, conDB37, conDB62, conSNC, wireMGTF, wireCAT6, len, washer, screw, bolt int, power float64, voltage string, price float64) error {
+func (db *ItemsDB) AddItem(itemID int, name, design, link string, quantity, placeDIN, placeU, portAIN, portAOT, portDIN, portDOT, portEHT, pci, connRJ, con20PIN, con50PIN, conDB37, conDB62, conSNC, wireMGTF, wireCAT6, len, washer, screw, bolt int, power float64, voltage string, price float64) error {
 	start := time.Now()
-	_, err := db.Exec(addFeatures, name, design, link, quantity, placeDIN, placeU, portAIN, portAOT, portDIN,
+	_, err := db.Exec(addFeatures, itemID, name, design, link, quantity, placeDIN, placeU, portAIN, portAOT, portDIN,
 		portDOT, portEHT, pci, connRJ, con20PIN, con50PIN, conDB37, conDB62, conSNC, wireMGTF, wireCAT6, len, washer, screw, bolt, power, voltage, price)
 	if err != nil {
 		return err
@@ -52,8 +52,8 @@ func (db *ItemsDB) AddItem(name, design, link string, quantity, placeDIN, placeU
 //	return exists, nil
 //}
 
-func (db *ItemsDB) DeleteItem(design string) error {
-	_, err := db.Exec(deleteUserAccess, design)
+func (db *ItemsDB) DeleteItem(itemID int) error {
+	_, err := db.Exec(deleteUserAccess, itemID)
 	if err != nil {
 		return err
 	}
@@ -61,9 +61,9 @@ func (db *ItemsDB) DeleteItem(design string) error {
 	return nil
 }
 
-func (db *ItemsDB) UpdateItem(name, design, link string, quantity, placeDIN, placeU, portAIN, portAOT, portDIN, portDOT, portEHT, pci, connRJ, con20PIN, con50PIN, conDB37, conDB62, conSNC, wireMGTF, wireCAT6, len, washer, screw, bolt int, power float64, voltage string, price float64) error {
+func (db *ItemsDB) UpdateItem(itemID int, name, design, link string, quantity, placeDIN, placeU, portAIN, portAOT, portDIN, portDOT, portEHT, pci, connRJ, con20PIN, con50PIN, conDB37, conDB62, conSNC, wireMGTF, wireCAT6, len, washer, screw, bolt int, power float64, voltage string, price float64) error {
 	start := time.Now()
-	_, err := db.Exec(updateUserAccess, name, design, link, quantity, placeDIN, placeU, portAIN, portAOT, portDIN,
+	_, err := db.Exec(updateUserAccess, itemID, name, design, link, quantity, placeDIN, placeU, portAIN, portAOT, portDIN,
 		portDOT, portEHT, pci, connRJ, con20PIN, con50PIN, conDB37, conDB62, conSNC, wireMGTF, wireCAT6, len, washer, screw, bolt, power, voltage, price)
 	if err != nil {
 		return err

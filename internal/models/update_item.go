@@ -1,6 +1,7 @@
 package models
 
 type UpdateItemRequest struct {
+	ItemID      int    `json:"item_id"`
 	Name        string `json:"name"`
 	Designation string `json:"designation"`
 	Link        string `json:"link"`
