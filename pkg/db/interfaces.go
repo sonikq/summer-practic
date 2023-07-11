@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"github.com/jmoiron/sqlx"
 	"log"
 	"time"
@@ -12,7 +13,7 @@ type ItemsDB struct {
 
 type IItemsDB interface {
 	AddItem(int, string, string, string, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float64, string, float64) error
-	EditTable(int, string) error
+	EditTable(string, interface{}) error
 	DeleteItem(int) error
 	UpdateItem(int, string, string, string, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float64, string, float64) error
 	CloseDB() error
@@ -35,9 +36,21 @@ func (db *ItemsDB) AddItem(itemID int, name, design, link string, quantity, plac
 	return nil
 }
 
-func (db *ItemsDB) EditTable(itemID int, newObj string) error {
+func (db *ItemsDB) EditTable(newObj string, newType interface{}) error {
 	start := time.Now()
-	_, err := db.Exec(editTable, itemID, newObj)
+	switch newType.(type) {
+	case string:
+		newType = "varchar"
+	case int:
+		newType = "integer"
+	case float64:
+		newType = "numeric"
+	default:
+		newType = "data"
+	}
+
+	t := fmt.Sprintf("%s %s", newObj, newType)
+	_, err := db.Exec(editTable, t)
 	if err != nil {
 		return err
 	}

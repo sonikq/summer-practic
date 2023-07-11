@@ -1,8 +1,8 @@
 package models
 
 type EditTableRequest struct {
-	ItemID int    `json:"item_id"`
-	NewObj string `json:"new_obj"`
+	NewObj string      `json:"new_obj"`
+	Type   interface{} `json:"type"`
 }
 
 type EditTableResponse struct {

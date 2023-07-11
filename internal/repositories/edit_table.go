@@ -17,7 +17,7 @@ func NewEditTableRepo(db *db.DB) *EditTableRepo {
 }
 
 func (r *EditTableRepo) EditTable(request models.EditTableRequest) models.EditTableResponse {
-	if err := r.db.EditTable(request.ItemID, request.NewObj); err != nil {
+	if err := r.db.EditTable(request.NewObj, request.Type); err != nil {
 		e := strings.Split(err.Error(), ": ")
 		src, msg := e[0], e[1]
 		return models.EditTableResponse{
