@@ -22,7 +22,7 @@ func (r *EditTableRepo) EditTable(request models.EditTableRequest) models.EditTa
 		src, msg := e[0], e[1]
 		return models.EditTableResponse{
 			Code:   500,
-			Status: deleteAccessUserFail,
+			Status: editTableFail,
 			Error: &models.Err{
 				Source:  src,
 				Message: msg,
@@ -32,7 +32,7 @@ func (r *EditTableRepo) EditTable(request models.EditTableRequest) models.EditTa
 
 	return models.EditTableResponse{
 		Code:   200,
-		Status: deleteAccessUserSuccess,
+		Status: editTableSuccess,
 		Error:  nil,
 	}
 }

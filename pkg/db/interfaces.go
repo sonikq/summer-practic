@@ -2,7 +2,6 @@ package db
 
 import (
 	"errors"
-	"fmt"
 	"github.com/jmoiron/sqlx"
 	"log"
 	"time"
@@ -54,9 +53,9 @@ func (db *ItemsDB) EditTable(newObj string, newType interface{}) error {
 		return errors.New("Неверный тип данных ")
 	}
 
-	t := fmt.Sprintf("%s %s", newObj, newType)
-	fmt.Println(t)
-	_, err := db.Exec(editTable, t)
+	//t := fmt.Sprintf("%s %s", newObj, newType)
+	//fmt.Println(t)
+	_, err := db.Exec(editTable, newObj, newType)
 	if err != nil {
 		return err
 	}

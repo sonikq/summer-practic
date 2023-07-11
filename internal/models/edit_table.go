@@ -1,7 +1,7 @@
 package models
 
 type EditTableRequest struct {
-	NewObj string      `json:"new_obj"`
+	NewObj string      `json:"new_col"`
 	Type   interface{} `json:"type"`
 }
 
