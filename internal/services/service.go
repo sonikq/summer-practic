@@ -9,9 +9,9 @@ type IAddItemService interface {
 	AddItem(request models.AddItemRequest, response chan models.AddItemResponse)
 }
 
-//type ICheckAccessService interface {
-//	CheckAccessUser(request models.CheckUserAccessRequest, response chan models.CheckUserAccessResponse)
-//}
+type IEditTableService interface {
+	EditTable(request models.EditTableRequest, response chan models.EditTableResponse)
+}
 
 type IDeleteItemService interface {
 	DeleteItem(request models.DeleteItemRequest, response chan models.DeleteItemResponse)
@@ -23,15 +23,15 @@ type IUpdateItemService interface {
 
 type Service struct {
 	IAddItemService
-	//ICheckAccessService
+	IEditTableService
 	IDeleteItemService
 	IUpdateItemService
 }
 
 func NewService(repos *repositories.Repository) *Service {
 	return &Service{
-		IAddItemService: NewAddItemService(repos.IAddItemRepo),
-		//ICheckAccessService:  NewCheckAccessService(repos.ICheckAccessRepo),
+		IAddItemService:    NewAddItemService(repos.IAddItemRepo),
+		IEditTableService:  NewEditTableService(repos.IEditTableRepo),
 		IDeleteItemService: NewDeleteItemService(repos.IDeleteAccessRepo),
 		IUpdateItemService: NewUpdateItemService(repos.IUpdateAccessRepo),
 	}

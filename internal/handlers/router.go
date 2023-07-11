@@ -40,12 +40,12 @@ func NewRouter(option Option) *gin.Engine {
 		})
 	})
 
-	userAccess := router.Group("/item")
+	item := router.Group("/item")
 	{
-		userAccess.POST("/add", h.Handler.AddItem)
-		//userAccess.POST("/check", h.Handler.CheckUserAccess)
-		userAccess.POST("/delete", h.Handler.DeleteItem)
-		userAccess.POST("/update", h.Handler.UpdateItem)
+		item.POST("/add", h.Handler.AddItem)
+		item.POST("/check", h.Handler.EditTable)
+		item.POST("/delete", h.Handler.DeleteItem)
+		item.POST("/update", h.Handler.UpdateItem)
 	}
 
 	return router

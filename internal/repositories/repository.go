@@ -9,9 +9,9 @@ type IAddItemRepo interface {
 	AddItem(request models.AddItemRequest) models.AddItemResponse
 }
 
-//type ICheckAccessRepo interface {
-//	CheckAccessUser(request models.CheckUserAccessRequest) models.CheckUserAccessResponse
-//}
+type IEditTableRepo interface {
+	EditTable(request models.EditTableRequest) models.EditTableResponse
+}
 
 type IDeleteAccessRepo interface {
 	DeleteItem(request models.DeleteItemRequest) models.DeleteItemResponse
@@ -23,15 +23,15 @@ type IUpdateAccessRepo interface {
 
 type Repository struct {
 	IAddItemRepo
-	//ICheckAccessRepo
+	IEditTableRepo
 	IDeleteAccessRepo
 	IUpdateAccessRepo
 }
 
 func NewRepository(db *db.DB) *Repository {
 	return &Repository{
-		IAddItemRepo: NewAddItemRepo(db),
-		//ICheckAccessRepo:  NewCheckAccessRepo(db),
+		IAddItemRepo:      NewAddItemRepo(db),
+		IEditTableRepo:    NewEditTableRepo(db),
 		IDeleteAccessRepo: NewDeleteItemRepo(db),
 		IUpdateAccessRepo: NewUpdateItemRepo(db),
 	}

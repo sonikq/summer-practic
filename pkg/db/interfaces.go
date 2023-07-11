@@ -12,7 +12,7 @@ type ItemsDB struct {
 
 type IItemsDB interface {
 	AddItem(int, string, string, string, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float64, string, float64) error
-	//CheckUserAccess(int, int, int, int, string) (bool, error)
+	EditTable(int, string) error
 	DeleteItem(int) error
 	UpdateItem(int, string, string, string, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float64, string, float64) error
 	CloseDB() error
@@ -35,22 +35,15 @@ func (db *ItemsDB) AddItem(itemID int, name, design, link string, quantity, plac
 	return nil
 }
 
-//func (db *ItemsDB) CheckUserAccess(userID int, okud int, reportID int, chapterID int, operation string) (bool, error) {
-//	var exists bool
-//	row, err := db.Query(checkUserAccess, userID, okud, reportID, chapterID, operation)
-//	if err != nil {
-//		return false, err
-//	}
-//	defer row.Close()
-//
-//	for row.Next() {
-//		if err = row.Scan(&exists); err != nil {
-//			return false, err
-//		}
-//	}
-//
-//	return exists, nil
-//}
+func (db *ItemsDB) EditTable(itemID int, newObj string) error {
+	start := time.Now()
+	_, err := db.Exec(editTable, itemID, newObj)
+	if err != nil {
+		return err
+	}
+	log.Printf("Editing table time: %v\n", time.Since(start))
+	return nil
+}
 
 func (db *ItemsDB) DeleteItem(itemID int) error {
 	_, err := db.Exec(deleteUserAccess, itemID)
