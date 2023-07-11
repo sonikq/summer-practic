@@ -55,6 +55,7 @@ func (db *ItemsDB) EditTable(newObj string, newType interface{}) error {
 	}
 
 	t := fmt.Sprintf("%s %s", newObj, newType)
+	fmt.Println(t)
 	_, err := db.Exec(editTable, t)
 	if err != nil {
 		return err
