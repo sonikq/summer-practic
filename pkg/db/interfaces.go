@@ -1,6 +1,7 @@
 package db
 
 import (
+	"errors"
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"log"
@@ -38,15 +39,19 @@ func (db *ItemsDB) AddItem(itemID int, name, design, link string, quantity, plac
 
 func (db *ItemsDB) EditTable(newObj string, newType interface{}) error {
 	start := time.Now()
-	switch newType.(type) {
+	switch dataType := newType.(type) {
 	case string:
-		newType = "varchar"
-	case int:
-		newType = "integer"
-	case float64:
-		newType = "numeric"
+		if dataType == "string" {
+			newType = "varchar"
+		} else if dataType == "integer" {
+			newType = "integer"
+		} else if dataType == "float" {
+			newType = "numeric"
+		} else {
+			return errors.New("Ошибка в вводе типа колонки ")
+		}
 	default:
-		newType = "data"
+		return errors.New("Неверный тип данных ")
 	}
 
 	t := fmt.Sprintf("%s %s", newObj, newType)
